@@ -1,0 +1,19 @@
+body { 
+   background-size: 100%;
+   
+}
+#message{
+	text-align: center;
+	background-color: white;
+	font-size: 80px;
+	background-color: red;
+	color: white;
+}
+#menu{
+	text-align: center;
+	margin-left: 45%;
+	margin-rigth: 5%;
+	font-size: 100px;
+	font-style: oblique;
+	font-family: serif;
+}

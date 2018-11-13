@@ -4,12 +4,13 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="/register.css" />
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
 <div class="container-fluid">
-<h1>Register to vote!</h1>
+<h1>Register so we can know you</h1>
 <form action = "/summary">
 		<p>
 		First Name: <input pattern="[A-Z][a-z]*" required minlength="1" name = "firstname" />

@@ -1,19 +1,27 @@
 package co.gc.MyCoffeeShop;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import co.grandcircus.foods.FoodService;
+import co.gc.MyCoffeeShop.dao.MenuItemDao;
+import co.gc.MyCoffeeShop.dao.UserDao;
+
+
 
 @Controller
 public class CoffeeShopController {
 	
-	@Autowired // This makes it so we never have to set this variable. The annotation makes it so Spring fills it in. It's called wiring. 
-	//Wires things to other places. Enforces the singleton pattern
-	CoffeeMenu coffeeMenu;
+	@Autowired
+	private MenuItemDao menuItemDao;
+	
+	@Autowired
+	private UserDao userDao;
+	
 	@RequestMapping("/")
 	public ModelAndView index() {
 		return new ModelAndView("index");
@@ -27,14 +35,24 @@ public class CoffeeShopController {
 	@RequestMapping("/summary")
 	public ModelAndView summary(User user, @RequestParam(name="box", required=false) boolean box) {
 		ModelAndView mv = new ModelAndView("summary");
+		userDao.create(user);
 		mv.addObject("user", user);
 		return mv;
 	}
 	
 	@RequestMapping("/menu")
-	public ModelAndView summary() {
+	public ModelAndView menu() {
 		ModelAndView mv = new ModelAndView("menu");
-		mv.addObject("menu", coffeeMenu.getAllMenuItems());
+		List<MenuItem> menu = menuItemDao.findAll();
+		mv.addObject("menu", menu);
 		return mv;
 	}
+	@RequestMapping("/single")
+	public ModelAndView viewSingle(@RequestParam("searchname") String searchname) {
+		ModelAndView mv = new ModelAndView("single");
+		MenuItem menuItem = menuItemDao.findByName(searchname);
+		mv.addObject("item", menuItem);
+		return mv;
+	}
+	
 }
