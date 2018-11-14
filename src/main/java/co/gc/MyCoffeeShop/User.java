@@ -1,6 +1,18 @@
 package co.gc.MyCoffeeShop;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="users")
 public class User {
+		@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+		@Column(name="id")
+		private Long id;
 		private String firstname;
 		private String lastname;
 		private String email;
@@ -83,7 +95,7 @@ public class User {
 
 		@Override
 		public String toString() {
-			return "User [firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phonenumber="
+			return "User id" + id + " [firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", phonenumber="
 					+ phonenumber + ", birthday=" + birthday + ", newsletter=" + newsletter + ", password=" + password
 					+ "]";
 		}

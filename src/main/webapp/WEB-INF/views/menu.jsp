@@ -20,11 +20,20 @@
 		
 		<tr>
 		<c:forEach var="menuItem" items= "${menu }">
-			<td>${ menuItem.name }</td><td>${menuItem.description }</td><td> <fmt:formatNumber value = "${menuItem.price}" 
-         type = "currency"/>	</td>
+			<td>${ menuItem.name }<c:if test="${not empty admin}">
+		    <a href="/menu/edit?id=${menuItem.id }" class="btn btn-secondary mb-2">Edit</a>
+		    <a href="/menu/delete?id=${ menuItem.id }" class="btn btn-secondary mb-2">Delete</a>
+	  	  </c:if>
+	  	  <td>${menuItem.description }</td>
+	  	  <td> <fmt:formatNumber value = "${menuItem.price}" 
+       	  type = "currency"/>	</td>
 		</tr>
 		</c:forEach>
-		<tr><td colspan="3" id = "bottom"><form action="/single">Search<input name="searchname"/></form></td></tr>
+		<tr><td colspan="3" id = "bottom"><form action="/single" >Search<br><input name="searchname"/><div id= "display">${error}</div></form>
+		<form action="/menu"><br><button id="mainmenu">Main Menu</button></form></td></tr>
+		<c:if test="${not empty admin}">
+		  <tr><td colspan="3"><form action="/menu/create"><br><button id="edit">Add An Item</button></form></td></tr>
+	  	</c:if>
 	</table>
 </body>
 </html>
