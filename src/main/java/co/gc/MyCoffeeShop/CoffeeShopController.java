@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import co.gc.MyCoffeeShop.dao.CartItemDao;
 import co.gc.MyCoffeeShop.dao.MenuItemDao;
 import co.gc.MyCoffeeShop.dao.UserDao;
-import co.grandcircus.foodsorm.entity.Food;
+
 
 
 @Controller
@@ -23,6 +24,9 @@ public class CoffeeShopController {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private CartItemDao cartItemDao;
 	
 	@RequestMapping("/")
 	public ModelAndView index() {
@@ -107,6 +111,25 @@ public class CoffeeShopController {
 	public ModelAndView submitCreateForm(MenuItem menuItem) {
 		menuItemDao.create(menuItem);
 		return new ModelAndView("redirect:/admin/menu");
+	}
+	
+	@RequestMapping(value="/add")
+	public ModelAndView addToCart(@RequestParam("id") Long menuItemId) {
+		MenuItem m = menuItemDao.findById(menuItemId);
+		CartItem cartItem = new CartItem();
+		System.out.println(cartItemDao.findByMenuItemId(menuItemId).getName());
+		for (CartItem c : cartItemDao.findAll()) {
+			if (c.getMenuItem().getId() == menuItemId) {
+				Integer quantity = c.getQuantity()+1;
+				c.setQuantity(quantity);
+				cartItemDao.update(c);
+				return new ModelAndView("redirect:/menu");
+			}
+		}
+		cartItem.setQuantity(1);
+		cartItem.setMenuItem(m);
+		cartItemDao.create(cartItem);
+		return new ModelAndView("redirect:/menu");
 	}
 	
 }

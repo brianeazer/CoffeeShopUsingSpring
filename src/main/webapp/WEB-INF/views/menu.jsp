@@ -27,9 +27,11 @@
 	  	  <td>${menuItem.description }</td>
 	  	  <td> <fmt:formatNumber value = "${menuItem.price}" 
        	  type = "currency"/>	</td>
+       	  <td><a href="/add?id=${menuItem.id }" class="btn btn-secondary mb-2">Add to Cart</a></td>
 		</tr>
 		</c:forEach>
-		<tr><td colspan="3" id = "bottom"><form action="/single" >Search<br><input name="searchname"/><div id= "display">${error}</div></form>
+		<tr><td colspan="3" id = "bottom"><form action="/single" >Search<br><input name="searchname"/>
+		<div id= "display">${error}</div></form>
 		<form action="/menu"><br><button id="mainmenu">Main Menu</button></form></td></tr>
 		<c:if test="${not empty admin}">
 		  <tr><td colspan="3"><form action="/menu/create"><br><button id="edit">Add An Item</button></form></td></tr>

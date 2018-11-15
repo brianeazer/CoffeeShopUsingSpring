@@ -1,6 +1,7 @@
 package co.gc.MyCoffeeShop.dao;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,7 +24,11 @@ public class MenuItemDao {
 		return em.createQuery("FROM MenuItem", MenuItem.class).getResultList();
 	}
 	public MenuItem findById(Long id) {
+		try {
 		return em.find(MenuItem.class, id);
+		} catch(NoSuchElementException e) {
+			return null;
+		}
 	}
 
 	public void delete(Long id) {
